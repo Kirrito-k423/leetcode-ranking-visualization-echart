@@ -10,9 +10,13 @@
 </head>
 
 <body style="height: 100%; margin: 0">
+    <div id="title"><center><h1 style="font-size:50px; color:black;font-family: Garamond">Leetcode contest ranking</h1></center></div>
+    
     <div id="container" style="height:50%; width: 100%;"></div>
-    <div id="container2" style="height:50%;width: 100%;"></div>
+    <div id="container2" style="height:50%;width: 90%;margin: 5%"></div>
 
+
+    
     <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/jquery"></script>
     <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.4.2/dist/echarts.min.js"></script>
     <!-- Uncomment this line if you want to dataTool extension
@@ -128,7 +132,7 @@
                     ...datasetWithFilters
                 ],
                 title: {
-                    text: 'Leetcode contest ranking'
+                    // text: 'Leetcode contest ranking'
                 },
                 tooltip: {
                     order: 'valueDesc',
@@ -238,18 +242,18 @@
                     left: 150,
                     right: 80
                 },
-                toolbox: {
-                    show: true,
-                    feature: {
-                        dataZoom: {
-                        yAxisIndex: 'none'
-                        },
-                        dataView: { readOnly: false },
-                        magicType: { type: ['line', 'bar'] },
-                        restore: {},
-                        saveAsImage: {}
-                    }
-                },
+                // toolbox: {
+                //     show: true,
+                //     feature: {
+                //         dataZoom: {
+                //         yAxisIndex: 'none'
+                //         },
+                //         dataView: { readOnly: false },
+                //         magicType: { type: ['line', 'bar'] },
+                //         restore: {},
+                //         saveAsImage: {}
+                //     }
+                // },
                 xAxis: {
                     max: 'dataMax',
                     axisLabel: {
