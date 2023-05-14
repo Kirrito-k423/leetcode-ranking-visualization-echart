@@ -7,13 +7,13 @@ import requests, urllib
 from bs4 import BeautifulSoup
 import json
  
-USERNAME = "shaojiemike"
-name = "graphql/noj-go"
-operationName = "languageStats"
-url = "https://leetcode.cn/"+name+"?"+\
+USERNAME = "ibug"
+name = "graphql"
+operationName = "userContestRankingInfo"
+url = "https://leetcode.con/"+name+"?"+\
         "operationName=" + operationName + \
-        "&variables={%22userSlug%22:%20%22" + USERNAME + "%22}"+\
-        "&query=\n    query languageStats($userSlug: String!) {\n  userLanguageProblemCount(userSlug: $userSlug) {\n    languageName\n    problemsSolved\n  }\n}\n   "
+        "&variables={%22username%22:%20%22" + USERNAME + "%22}"+\
+        "&query=\n    query userContestRankingInfo($username: String!) {\n  userContestRanking(username: $username) {\n    attendedContestsCount\n    rating\n    globalRanking\n    totalParticipants\n    topPercentage\n    badge {\n      name\n    }\n  }\n  userContestRankingHistory(username: $username) {\n    attended\n    trendDirection\n    problemsSolved\n    totalProblems\n    finishTimeInSeconds\n    rating\n    ranking\n    contest {\n      title\n      startTime\n    }\n  }\n}\n   "
 
 
 def open_url(url):
@@ -26,12 +26,15 @@ def open_url(url):
     html_str = html.decode('utf-8')
     t = json.loads(html_str)
  
-    for item in t['data']['commonNojPermissionTypes']:
+    for item in t['data']['userContestRanking']:
         print (item)
  
  
 if __name__ == '__main__':
     url = url.replace(" ", "%20")
+    url = url.replace("%20%20", "%20")
+    url = url.replace("%20%20", "%20")
+    url = url.replace("%20%20", "%20")
     url = url.replace("\n", "")
     print(url)
     open_url(url)
