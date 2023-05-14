@@ -57,14 +57,12 @@
         function run(_rawData) {
             // var countries = ['Australia', 'Canada', 'China', 'Cuba', 'Finland', 'France', 'Germany', 'Iceland', 'India', 'Japan', 'North Korea', 'South Korea', 'New Zealand', 'Norway', 'Poland', 'Russia', 'Turkey', 'United Kingdom', 'United States'];
             const peoples = [
-                // 'Finland',
                 '谭邵杰',
                 '曹振伟',
                 '沈沛祺',
                 '黄业琦',
                 '袁福焱',
-                '林坤贤',
-                'United Kingdom'
+                '林坤贤'
             ];
             const datasetWithFilters = [];
             const seriesList = [];
@@ -79,7 +77,7 @@
                             and: [
                                 {
                                     dimension: 'contest number',
-                                    gte: 300
+                                    gte: 0
                                 },
                                 {
                                     dimension: 'Name',
@@ -108,10 +106,10 @@
                         focus: 'series'
                     },
                     encode: {
-                        x: 'contest number',
+                        x: 'contest name',
                         y: 'score',
                         label: ['Name', 'score'],
-                        itemName: 'contest number',
+                        itemName: 'contest name',
                         tooltip: ['score']
                     },
                     markPoint: {
@@ -152,11 +150,11 @@
                 },
                 xAxis: {
                     type: 'category',
-                    name: 'contest number',
+                    name: '比赛场次',
                     nameLocation: 'middle'
                 },
                 yAxis: {
-                    name: 'score',
+                    name: '竞赛分数',
                     min:1450,
                     splitNumber: 10
                 },
