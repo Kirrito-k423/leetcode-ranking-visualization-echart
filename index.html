@@ -134,13 +134,27 @@
                     order: 'valueDesc',
                     trigger: 'axis'
                 },
+                toolbox: {
+                    show: true,
+                    feature: {
+                        dataZoom: {
+                        yAxisIndex: 'none'
+                        },
+                        dataView: { readOnly: false },
+                        magicType: { type: ['line', 'bar'] },
+                        restore: {},
+                        saveAsImage: {}
+                    }
+                },
                 xAxis: {
                     type: 'category',
                     name: 'contest number',
                     nameLocation: 'middle'
                 },
                 yAxis: {
-                    name: 'score'
+                    name: 'score',
+                    min:1450,
+                    splitNumber: 10
                 },
                 grid: {
                     right: 140
@@ -223,6 +237,18 @@
                     bottom: 30,
                     left: 150,
                     right: 80
+                },
+                toolbox: {
+                    show: true,
+                    feature: {
+                        dataZoom: {
+                        yAxisIndex: 'none'
+                        },
+                        dataView: { readOnly: false },
+                        magicType: { type: ['line', 'bar'] },
+                        restore: {},
+                        saveAsImage: {}
+                    }
                 },
                 xAxis: {
                     max: 'dataMax',
