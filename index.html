@@ -188,15 +188,15 @@
         var ROOT_PATH = 'https://echarts.apache.org/examples';
         var option;
 
-        const updateFrequency = 700;
+        const updateFrequency = 570;
         const dimension = 0;
         const countryColors = {
-            '谭邵杰': '#00008b',
-            '曹振伟': '#024fa2',
-            '沈沛祺': '#f00',
-            '黄业琦': '#b22234',
-            '袁福焱': '#ffde00',
-            '林坤贤': '#000',
+            '谭邵杰': '#224ac6',
+            '曹振伟': '#92cd77',
+            '沈沛祺': '#fac858',
+            '黄业琦': '#ee6666',
+            '袁福焱': '#73c0de',
+            '林坤贤': '#3ba272',
             Australia: '#00008b',
             Canada: '#f00',
             China: '#ffde00',
@@ -248,18 +248,18 @@
                     left: 150,
                     right: 80
                 },
-                // toolbox: {
-                //     show: true,
-                //     feature: {
-                //         dataZoom: {
-                //         yAxisIndex: 'none'
-                //         },
-                //         dataView: { readOnly: false },
-                //         magicType: { type: ['line', 'bar'] },
-                //         restore: {},
-                //         saveAsImage: {}
-                //     }
-                // },
+                toolbox: {
+                    show: true,
+                    feature: {
+                        dataZoom: {
+                        yAxisIndex: 'none'
+                        },
+                        dataView: { readOnly: false },
+                        magicType: { type: ['line', 'bar'] },
+                        restore: {},
+                        saveAsImage: {}
+                    }
+                },
                 xAxis: {
                     max: 'dataMax',
                     axisLabel: {
