@@ -16,12 +16,12 @@ mount --move .  /var/www/html
 ```
 
 ## crontab
-`crontab -e` 添加定时任务
+`sudo crontab -e` 添加定时任务
 ```bash
 HOME=/home/shaojiemike
 DIR=/home/shaojiemike/test/echart        
-@reboot cd $DIR && source myPy/bin/activate && python3 src/main.py > ~/test/echart.log && echo "reboot" >> ~/test/echarttime.log   
-* 4 * * * cd $DIR && source myPy/bin/activate && python3 src/main.py > ~/test/echart.log && date >> ~/test/echarttime.log  
+@reboot cd $DIR && source myPy/bin/activate && python3 src/main.py > ~/test/echart.log && cp my_list.json /var/www/html &&echo "reboot" >> ~/test/echarttime.log   
+* 4 * * * cd $DIR && source myPy/bin/activate && python3 src/main.py > ~/test/echart.log && cp my_list.json /var/www/html && date >> ~/test/echarttime.log  
 ```
 ## Todo
 
