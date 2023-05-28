@@ -62,12 +62,14 @@
         function run(_rawData) {
             // var countries = ['Australia', 'Canada', 'China', 'Cuba', 'Finland', 'France', 'Germany', 'Iceland', 'India', 'Japan', 'North Korea', 'South Korea', 'New Zealand', 'Norway', 'Poland', 'Russia', 'Turkey', 'United Kingdom', 'United States'];
             const peoples = [
+                // TODO: 人员
                 '谭邵杰',
                 '曹振伟',
                 '沈沛祺',
                 '黄业琦',
                 '袁福焱',
-                '林坤贤'
+                '林坤贤',
+                '付佳伟'
             ];
             const datasetWithFilters = [];
             const seriesList = [];
@@ -194,12 +196,14 @@
         const updateFrequency = 570;
         const dimension = 0;
         const countryColors = {
+            // TODO: 人员
             '谭邵杰': '#224ac6',
             '曹振伟': '#92cd77',
             '沈沛祺': '#fac858',
             '黄业琦': '#ee6666',
             '袁福焱': '#73c0de',
             '林坤贤': '#3ba272',
+            '付佳伟': '#3ba272',
             Australia: '#00008b',
             Canada: '#f00',
             China: '#ffde00',
@@ -279,7 +283,8 @@
                 yAxis: {
                     type: 'category',
                     inverse: true,
-                    max: 5,
+                    // TODO: 人数 7 人, 写6 [0-6]
+                    max: 6,
                     axisLabel: {
                         show: true,
                         fontSize: 14,

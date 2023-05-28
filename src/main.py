@@ -1,30 +1,13 @@
-from graphqlclient import GraphQLClient
-import json
 from icecream import ic
 import re
 import config  # 加载配置
 import global_variable as glv
 import copy
+from crawlerCN import crawlerCnByName
+from crawlerCom import crawlerComByName
+import json
 
 
-client = GraphQLClient('https://leetcode.cn/graphql/noj-go/')
-
-query = '''
-query userContestRankingInfo($userSlug: String!) {
-  userContestRanking(userSlug: $userSlug) {
-    attendedContestsCount
-    rating
-  }
-  userContestRankingHistory(userSlug: $userSlug) {
-    attended
-    trendingDirection
-    rating
-    contest {
-      title
-    }
-  }
-}
-'''
 
 # take second element for sort
 def takeSecond(elem):
@@ -65,18 +48,16 @@ def fullList(tmpList, joinedContest):
 
 def main():
 
-    taskList = glv._get("taskList")
+    taskList = glv._get("cnTaskList")
+    taskList2 = glv._get("comTaskList")
+
     LCData = []
 
+    # 先统计每个人参加的所有不同的场次
     joinedContest = set()
+    # 国内
     for Name, LCName in taskList.items():
-        variables = {
-            "userSlug":LCName
-        }
-
-        result = client.execute(query=query, variables=variables)
-        t = json.loads(result)
-
+        t = crawlerCnByName(LCName)
         for contest in t['data']['userContestRankingHistory']:
             if contest['attended'] == True:
                 # ic(contest)
@@ -88,16 +69,28 @@ def main():
                     lcContestNumber=int(re.match("第 ([0-9]*) 场双周赛",contest['contest']['title']).group(1))
                     lcContestNumber=lcContestNumber*4+273
                 joinedContest.add(lcContestNumber)
+    # 国外
+    for Name, LCName in taskList2.items():
+        t = crawlerComByName(LCName)
+        for contest in t['data']['userContestRankingHistory']:
+            if contest['attended'] == True:
+                ic(contest)
+                lcContestNumber=0
+                if re.match("Weekly Contest ([0-9]*)",contest['contest']['title']):
+                    lcContestNumber=int(re.match("Weekly Contest ([0-9]*)",contest['contest']['title']).group(1))
+                    lcContestNumber=lcContestNumber*2
+                else:
+                    lcContestNumber=int(re.match("Biweekly Contest ([0-9]*)",contest['contest']['title']).group(1))
+                    lcContestNumber=lcContestNumber*4+273
+                ic(lcContestNumber)
+                joinedContest.add(lcContestNumber)
     ic(joinedContest)
+
+    # 然后各场次读取分数的数据
+    # 国内
     for Name, LCName in taskList.items():
         tmpList = []
-        variables = {
-            "userSlug":LCName
-        }
-
-        result = client.execute(query=query, variables=variables)
-        t = json.loads(result)
-
+        t = crawlerCnByName(LCName)
         for contest in t['data']['userContestRankingHistory']:
             if contest['attended'] == True:
                 # ic(contest)
@@ -114,7 +107,35 @@ def main():
                 tmpList.append(tmp)
                 ic(tmp)
         # ic(tmpList)
+        # 补全，使得每人的分数连续
         LCData+=fullList(tmpList, joinedContest)
+
+    # 国内
+    for Name, LCName in taskList2.items():
+        tmpList = []
+        t = crawlerComByName(LCName)
+        for contest in t['data']['userContestRankingHistory']:
+            if contest['attended'] == True:
+                # ic(contest)
+                lcContestNumber=0
+                cnTile = ""
+                if re.match("Weekly Contest ([0-9]*)",contest['contest']['title']):
+                    lcContestNumber=int(re.match("Weekly Contest ([0-9]*)",contest['contest']['title']).group(1))
+                    cnTile = "第 {} 场周赛".format(lcContestNumber)
+                    lcContestNumber=lcContestNumber*2    
+                else:
+                    lcContestNumber=int(re.match("Biweekly Contest ([0-9]*)",contest['contest']['title']).group(1))
+                    cnTile = "第 {} 场双周赛".format(lcContestNumber)
+                    lcContestNumber=lcContestNumber*4+273
+                # ic(lcContestNumber)
+                tmp=[int(contest['rating']), Name,\
+                    lcContestNumber, cnTile]
+                tmpList.append(tmp)
+                ic(tmp)
+        # ic(tmpList)
+        # 补全，使得每人的分数连续
+        LCData+=fullList(tmpList, joinedContest)
+
     LCData.sort(key=takeSecond)
     ic(LCData)
     LCData.insert(0,[
