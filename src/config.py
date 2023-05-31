@@ -8,6 +8,7 @@ glv._set("cnTaskList",
         '沈沛祺':"blankpower",
         '黄业琦':"chivier",
         '袁福焱':"therainstorm",
-        '林坤贤':"leetcode72173"})
+        '林坤贤':"leetcode72173",
+        '田永劭':"mogician"})
 glv._set("comTaskList",
         {'付佳伟':"ibug"})

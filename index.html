@@ -69,7 +69,8 @@
                 '黄业琦',
                 '袁福焱',
                 '林坤贤',
-                '付佳伟'
+                '付佳伟',
+                '田永劭'
             ];
             const datasetWithFilters = [];
             const seriesList = [];
@@ -128,7 +129,8 @@
                 });
             });
             option = {
-                animationDuration: 10000,
+                //TODO
+                animationDuration: 5000,
                 dataset: [
                     {
                         id: 'dataset_raw',
@@ -193,7 +195,8 @@
         var ROOT_PATH = 'https://echarts.apache.org/examples';
         var option;
 
-        const updateFrequency = 570;
+        //TODO
+        const updateFrequency = 200;
         const dimension = 0;
         const countryColors = {
             // TODO: 人员
@@ -203,7 +206,8 @@
             '黄业琦': '#ee6666',
             '袁福焱': '#73c0de',
             '林坤贤': '#3ba272',
-            '付佳伟': '#3ba272',
+            '付佳伟': '#ff915a',
+            '田永劭': '#a969c6',
             Australia: '#00008b',
             Canada: '#f00',
             China: '#ffde00',
@@ -284,7 +288,7 @@
                     type: 'category',
                     inverse: true,
                     // TODO: 人数 7 人, 写6 [0-6]
-                    max: 6,
+                    max: 7,
                     axisLabel: {
                         show: true,
                         fontSize: 14,
@@ -299,8 +303,8 @@
                             }
                         }
                     },
-                    animationDuration: 300,
-                    animationDurationUpdate: 300
+                    animationDuration: 30,
+                    animationDurationUpdate: 30
                 },
                 series: [
                     {
