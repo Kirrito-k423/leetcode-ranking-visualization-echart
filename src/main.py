@@ -3,7 +3,7 @@ import re
 import config  # 加载配置
 import global_variable as glv
 import copy
-from crawlerCN import crawlerCnByName
+from crawlerCN import crawlerCnByName, questionCnByName
 from crawlerCom import crawlerComByName
 import json
 
@@ -12,6 +12,9 @@ import json
 # take second element for sort
 def takeSecond(elem):
     return elem[2]
+
+def take4(elem):
+    return elem[4]
 
 def correctContestName(result):
     for item in result:
@@ -46,7 +49,7 @@ def fullList(tmpList, joinedContest):
     result.sort(key=takeSecond)
     return correctContestName(result)
 
-def main():
+def contestInfo():
 
     taskList = glv._get("cnTaskList")
     taskList2 = glv._get("comTaskList")
@@ -149,5 +152,37 @@ def main():
     with open('my_list.json', 'w') as f:
         f.write(my_list_json)
 
+def questionInfo():
+    taskList = glv._get("cnTaskList")
+
+    # 国内
+    sortData = []
+    nameData = []
+    HARDData = []
+    MEDIUMData = []
+    EASYData = []
+    for Name, LCName in taskList.items():    
+        [e, h, m ] = questionCnByName(LCName)
+        ic(LCName,e,h,m)
+        sortData.append([Name,e,h,m,e+h+m])
+
+
+    sortData.sort(key=take4)
+    for [Name, e, h, m, sum] in sortData:
+        nameData+=[Name]
+        HARDData.append(h)
+        MEDIUMData.append(m)
+        EASYData.append(e)
+    questionData = []
+    questionData.insert(0,nameData)
+    questionData.insert(1,HARDData)
+    questionData.insert(2,MEDIUMData)
+    questionData.insert(3,EASYData)
+    my_list_json = json.dumps(questionData)
+    with open('question.json', 'w') as f:
+        f.write(my_list_json)
+
+    
 if __name__ == "__main__":
-    main()
+    contestInfo()
+    questionInfo()

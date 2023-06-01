@@ -17,6 +17,7 @@
     
     <div id="container" style="height:50%; width: 100%;"></div>
     <div id="container2" style="height:50%;width: 90%;margin: 5%"></div>
+    <div id="container3" style="height:50%;width: 80%;margin: 12%"></div>
 
 
     
@@ -127,7 +128,7 @@
                         ]
                     }
                 });
-            });
+            }); // echarts.util.each
             option = {
                 //TODO
                 animationDuration: 5000,
@@ -173,7 +174,7 @@
                 series: seriesList
             };
             myChart.setOption(option);
-        }
+        }// function run(_rawData) {
 
 
         if (option && typeof option === 'object') {
@@ -186,7 +187,8 @@
     </script>
 
     <script type="text/javascript">
-        var dom = document.getElementById('container2');
+         function createChart(divId) {
+        var dom = document.getElementById(divId);
         var myChart = echarts.init(dom, null, {
             renderer: 'canvas',
             useDirtyRect: false
@@ -374,7 +376,97 @@
         }
 
         window.addEventListener('resize', myChart.resize);
+    }
+        createChart('container2');
     </script>
+     <script type="text/javascript">
+        var dom = document.getElementById('container3');
+        var myChart = echarts.init(dom, null, {
+          renderer: 'canvas',
+          useDirtyRect: false
+        });
+        var app = {};
+    
+        var option;
+    
+        // $.when(
+        //   $.getJSON('./question.json')
+        // ).done(function (res0) {
+      fetch('./question.json') // 替换为您的 JSON 文件的路径
+      .then(response => response.json())
+      .then(data0 => {
+          // const data0 = res0[0];
+          option = {
+            tooltip: {
+              trigger: 'axis',
+              axisPointer: {
+                // Use axis to trigger tooltip
+                type: 'shadow' // 'shadow' as default; can also be 'line' or 'shadow'
+              }
+            },
+            legend: {},
+            grid: {
+              left: '3%',
+              right: '4%',
+              bottom: '3%',
+              containLabel: true
+            },
+            xAxis: {
+              type: 'value'
+            },
+            yAxis: {
+              type: 'category',
+              data: data0[0]
+              // data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+            },
+            series: [
+              {
+                name: '困难',
+                type: 'bar',
+                stack: 'total',
+                label: {
+                  show: true
+                },
+                emphasis: {
+                  focus: 'series'
+                },
+                data: data0[1]
+                // data: [320, 302, 301, 334, 390, 330, 320]
+              },
+              {
+                name: '中等',
+                type: 'bar',
+                stack: 'total',
+                label: {
+                  show: true
+                },
+                emphasis: {
+                  focus: 'series'
+                },
+                data: data0[2]
+              },
+              {
+                name: '简单',
+                type: 'bar',
+                stack: 'total',
+                label: {
+                  show: true
+                },
+                emphasis: {
+                  focus: 'series'
+                },
+                data: data0[3]
+              }
+            ]
+          };
+          myChart.setOption(option);
+        });
+        if (option && typeof option === 'object') {
+          myChart.setOption(option);
+        }
+    
+        window.addEventListener('resize', myChart.resize);
+      </script>
 </body>
 
 </html>
