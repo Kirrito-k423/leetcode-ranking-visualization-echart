@@ -25,4 +25,5 @@ DIR=/home/shaojiemike/test/echart
 ```
 ## Todo
 
- - [ ] get LC data
+ - [ ] Add website visitor count statistics and display data update time
+ - [ ] Add competition prediction scores by scraping data from the website https://lccn.lbao.site/.
