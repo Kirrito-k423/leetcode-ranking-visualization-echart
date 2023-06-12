@@ -1,5 +1,9 @@
 # leetcode-ranking-visualization-echart
 
+## Display 
+
+![chasing bar](./photos/first.png)
+
 ## Install
 
 
