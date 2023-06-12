@@ -58,5 +58,5 @@ for contest in t['data']['userContestRankingHistory']:
     LCData.append(tmp)
 ic(LCData)
 my_list_json = json.dumps(LCData)
-with open('my_list.json', 'w') as f:
+with open('my_list_test.json', 'w') as f:
   f.write(my_list_json)

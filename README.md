@@ -27,3 +27,7 @@ DIR=/home/shaojiemike/test/echart
 
  - [ ] Add website visitor count statistics and display data update time
  - [ ] Add competition prediction scores by scraping data from the website https://lccn.lbao.site/.
+
+## 实现思路
+
+1. lccn上是不是有新的竞赛，每个人查找其分数，存在则添加
