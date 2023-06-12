@@ -6,7 +6,9 @@ import copy
 from crawlerCN import crawlerCnByName, questionCnByName
 from crawlerCom import crawlerComByName
 import json
-
+from predictInfo import *
+import random
+import time
 
 
 # take second element for sort
@@ -58,6 +60,7 @@ def contestInfo():
 
     # 先统计每个人参加的所有不同的场次
     joinedContest = set()
+    addContest = set()
     # 国内
     for Name, LCName in taskList.items():
         t = crawlerCnByName(LCName)
@@ -87,6 +90,26 @@ def contestInfo():
                     lcContestNumber=lcContestNumber*4+273
                 ic(lcContestNumber)
                 joinedContest.add(lcContestNumber)
+    lastLCCN = lccnLastContestNumber()
+    result = predictNewContestNumber()
+    for newContestNumber in result:
+        if(newContestNumber > lastLCCN):
+            print(newContestNumber)
+            joinCount = 0
+            for Name, LCName in taskList.items():
+                sleep_time = random.uniform(0.5, 1)
+                time.sleep(sleep_time)
+                if getPredictScore(newContestNumber, glv._get("predictName")[Name]):
+                    joinCount += 1
+            for Name, LCName in taskList2.items():
+                sleep_time = random.uniform(0.5, 1)
+                time.sleep(sleep_time)
+                if getPredictScore(newContestNumber, glv._get("predictName")[Name]):
+                    joinCount += 1
+            ic(joinCount)
+            if joinCount > 0:
+                joinedContest.add(newContestNumber)
+                addContest.add(newContestNumber)
     ic(joinedContest)
 
     # 然后各场次读取分数的数据
@@ -109,6 +132,18 @@ def contestInfo():
                     lcContestNumber, contest['contest']['title']]
                 tmpList.append(tmp)
                 ic(tmp)
+        for addContestNum in addContest:
+            sleep_time = random.uniform(0.5, 1)
+            time.sleep(sleep_time)
+            score = getPredictScore(addContestNum, glv._get("predictName")[Name])
+            if score:
+                if addContestNum % 2 == 0:
+                    cnTile = "第 {} 场周赛".format(addContestNum // 2)
+                else:
+                    cnTile = "第 {} 场双周赛".format((addContestNum-273)//4)
+                tmp=[int(score), Name,\
+                        addContestNum, cnTile]
+                tmpList.append(tmp)       
         # ic(tmpList)
         # 补全，使得每人的分数连续
         LCData+=fullList(tmpList, joinedContest)
@@ -135,6 +170,18 @@ def contestInfo():
                     lcContestNumber, cnTile]
                 tmpList.append(tmp)
                 ic(tmp)
+        for addContestNum in addContest:
+            sleep_time = random.uniform(0.5, 1)
+            time.sleep(sleep_time)
+            score = getPredictScore(addContestNum, glv._get("predictName")[Name])
+            if score:
+                if addContestNum % 2 == 0:
+                    cnTile = "第 {} 场周赛".format(addContestNum // 2)
+                else:
+                    cnTile = "第 {} 场双周赛".format((addContestNum-273)//4)
+                tmp=[int(score), Name,\
+                        addContestNum, cnTile]
+                tmpList.append(tmp)  
         # ic(tmpList)
         # 补全，使得每人的分数连续
         LCData+=fullList(tmpList, joinedContest)
@@ -153,6 +200,7 @@ def contestInfo():
         f.write(my_list_json)
 
 def questionInfo():
+    # Retrieve the exercise count information for each user, including items of varying difficulty levels such as simple, intermediate, and challenging questions.
     taskList = glv._get("cnTaskList")
 
     # 国内
