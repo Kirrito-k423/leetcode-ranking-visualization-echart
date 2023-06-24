@@ -24,7 +24,11 @@ mount --move .  /var/www/html
 ```bash
 HOME=/home/shaojiemike
 DIR=/home/shaojiemike/test/echart        
-@reboot cd $DIR && source myPy/bin/activate && python3 src/main.py > ~/test/echart.log && cp my_list.json /var/www/html &&echo "reboot" >> ~/test/echarttime.log   
+@reboot cd $DIR && source myPy/bin/activate && python3 src/main.py > ~/test/echart.log && cp my_list.json /var/www/html &&echo "reboot" >> ~/test/echarttime.log  
+15 0 * * * cd $DIR && source myPy/bin/activate && python3 src/main.py > ~/test/echart.log && cp my_list.json /var/www/html && date >> ~/test/echarttime.log  
+30 0 * * * cd $DIR && source myPy/bin/activate && python3 src/main.py > ~/test/echart.log && cp my_list.json /var/www/html && date >> ~/test/echarttime.log  
+15 12 * * * cd $DIR && source myPy/bin/activate && python3 src/main.py > ~/test/echart.log && cp my_list.json /var/www/html && date >> ~/test/echarttime.log  
+30 12 * * * cd $DIR && source myPy/bin/activate && python3 src/main.py > ~/test/echart.log && cp my_list.json /var/www/html && date >> ~/test/echarttime.log  
 * 4 * * * cd $DIR && source myPy/bin/activate && python3 src/main.py > ~/test/echart.log && cp my_list.json /var/www/html && date >> ~/test/echarttime.log  
 ```
 ## Todo
