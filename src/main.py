@@ -58,10 +58,10 @@ def contestInfo():
 
     LCData = []
 
-    # 先统计每个人参加的所有不同的场次
+    ic("先统计每个人参加的所有不同的场次")
     joinedContest = set()
     addContest = set()
-    # 国内
+    ic("国内")
     for Name, LCName in taskList.items():
         t = crawlerCnByName(LCName)
         for contest in t['data']['userContestRankingHistory']:
@@ -75,7 +75,7 @@ def contestInfo():
                     lcContestNumber=int(re.match("第 ([0-9]*) 场双周赛",contest['contest']['title']).group(1))
                     lcContestNumber=lcContestNumber*4+273
                 joinedContest.add(lcContestNumber)
-    # 国外
+    ic("国外")
     for Name, LCName in taskList2.items():
         t = crawlerComByName(LCName)
         for contest in t['data']['userContestRankingHistory']:
@@ -90,27 +90,31 @@ def contestInfo():
                     lcContestNumber=lcContestNumber*4+273
                 ic(lcContestNumber)
                 joinedContest.add(lcContestNumber)
+                
+    ic("预测的比赛")
     lastLCCN = lccnLastContestNumber()
     result = predictNewContestNumber()
+    ic(lastLCCN, result)
     for newContestNumber in result:
-        if(newContestNumber > lastLCCN):
-            print(newContestNumber)
-            joinCount = 0
-            for Name, LCName in taskList.items():
-                sleep_time = random.uniform(0.5, 1)
-                time.sleep(sleep_time)
-                if getPredictScore(newContestNumber, glv._get("predictName")[Name]):
-                    joinCount += 1
-            for Name, LCName in taskList2.items():
-                sleep_time = random.uniform(0.5, 1)
-                time.sleep(sleep_time)
-                if getPredictScore(newContestNumber, glv._get("predictName")[Name]):
-                    joinCount += 1
-            ic(joinCount)
-            if joinCount > 0:
-                joinedContest.add(newContestNumber)
-                addContest.add(newContestNumber)
+        # if(newContestNumber > lastLCCN):
+        print(newContestNumber)
+        joinCount = 0
+        for Name, LCName in taskList.items():
+            sleep_time = random.uniform(0.5, 1)
+            time.sleep(sleep_time)
+            if getPredictScore(newContestNumber, glv._get("predictName")[Name]):
+                joinCount += 1
+        for Name, LCName in taskList2.items():
+            sleep_time = random.uniform(0.5, 1)
+            time.sleep(sleep_time)
+            if getPredictScore(newContestNumber, glv._get("predictName")[Name]):
+                joinCount += 1
+        ic(joinCount)
+        if joinCount > 0:
+            joinedContest.add(newContestNumber)
+            addContest.add(newContestNumber)
     ic(joinedContest)
+    ic(addContest)
 
     # 然后各场次读取分数的数据
     # 国内
